@@ -1,5 +1,5 @@
 {
-  "name": "Dones",
+  "name": "dones",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,8 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "native-base": "^2.3.2",
     "react": "16.0.0-alpha.12",
-    "react-native": "0.48.3"
+    "react-native": "0.48.3",
+    "react-native-vector-icons": "^4.3.0",
+    "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.0",
@@ -17,8 +20,10 @@
     "eslint": "^4.7.2",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^21.1.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-react-native": "^3.1.0",
     "flow-bin": "^0.55.0",
     "jest": "21.1.0",
     "prettier-eslint": "^8.1.1",
