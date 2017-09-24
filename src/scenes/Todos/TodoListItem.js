@@ -23,11 +23,11 @@ export default class TodoListItem extends React.Component {
   render() {
     return (
       <ListItem style={styles.listItem}>
-        <Button transparent>
+        <Button transparent onPress={() => this.props.makeDone()}>
           <Icon name="square" style={styles.iconButton} />
         </Button>
         <Text style={styles.listItemTitle}>{this.props.item.title}</Text>
-        <Button transparent>
+        <Button transparent onPress={() => this.props.toggleStar()}>
           <Icon active={this.props.item.isStar} name="star" style={styles.iconButton} />
         </Button>
       </ListItem>
@@ -37,4 +37,6 @@ export default class TodoListItem extends React.Component {
 
 TodoListItem.propTypes = {
   item: PropTypes.object.isRequired,
+  toggleStar: PropTypes.func.isRequired,
+  makeDone: PropTypes.func.isRequired,
 }

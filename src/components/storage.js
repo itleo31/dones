@@ -3,7 +3,9 @@ import Realm from 'realm'
 let realm
 const TodoSchema = {
   name: 'Todo',
+  primaryKey: 'id',
   properties: {
+    id: 'string',
     title: 'string',
     isStar: { type: 'bool', default: false },
     isDone: { type: 'bool', default: false },
@@ -33,6 +35,7 @@ const getTodos = (filter) => {
     return todos.filtered(filter)
   }
   return todos.map(item => ({
+    id: item.id,
     title: item.title,
     isDone: item.isDone,
     isStar: item.isStar,
@@ -41,7 +44,11 @@ const getTodos = (filter) => {
 
 const createTodo = todo =>
   tryWrite(() => {
-    realm.create('Todo', todo)
+    const obj = {
+      ...todo,
+      id: new Date().getTime().toString(),
+    }
+    realm.create('Todo', obj)
   })
 
 const deleteTodo = todo =>
@@ -49,9 +56,15 @@ const deleteTodo = todo =>
     realm.delete(todo)
   })
 
+const updateTodo = todo =>
+  tryWrite(() => {
+    realm.create('Todo', todo, true)
+  })
+
 export default {
   open,
   getTodos,
   createTodo,
   deleteTodo,
+  updateTodo,
 }

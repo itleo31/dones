@@ -9,20 +9,7 @@ export default class Dones extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: [
-        {
-          key: '1',
-          title: 'abc',
-          isStar: false,
-          isDone: false,
-        },
-        {
-          key: '2',
-          title: 'def',
-          isStar: true,
-          isDone: true,
-        },
-      ],
+      items: [],
     }
   }
 
@@ -53,6 +40,43 @@ export default class Dones extends React.Component {
     this.setState({ items })
   }
 
+  makeDone(todo) {
+    const obj = {
+      ...todo,
+      isDone: true,
+    }
+    storage
+      .updateTodo(obj)
+      .then(() => {
+        this.loadData()
+      })
+      .catch(() => {
+        Toast.show({
+          text: 'Failed to save',
+          type: 'danger',
+        })
+      })
+  }
+
+  toggleStar(todo) {
+    const obj = {
+      ...todo,
+      isStar: !todo.isStar,
+    }
+    storage
+      .updateTodo(obj)
+      .then(() => {
+        this.loadData()
+      })
+      .catch((err) => {
+        console.log(err)
+        Toast.show({
+          text: 'Failed to save',
+          type: 'danger',
+        })
+      })
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -66,7 +90,13 @@ export default class Dones extends React.Component {
           <List
             style={{ marginTop: 20 }}
             dataArray={this.state.items}
-            renderRow={item => <TodoListItem item={item} />}
+            renderRow={item => (
+              <TodoListItem
+                item={item}
+                toggleStar={() => this.toggleStar(item)}
+                makeDone={() => this.makeDone(item)}
+              />
+            )}
           />
         </Content>
       </Container>
